@@ -1,0 +1,35 @@
+# Define variables
+CXX = g++
+CXXFLAGS = -Wall -g
+LDFLAGS = -lz   # Linker flags for zlib
+TARGET = packet_generator
+OBJS = main.o PacketConfig.o PacketGenerator.o
+
+# Default rule
+all: $(TARGET)
+
+# Rule to build the target
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS) $(LDFLAGS)
+
+# Rule to build main.o
+main.o: main.cpp PacketConfig.h PacketGenerator.h
+	$(CXX) $(CXXFLAGS) -c main.cpp
+
+# Rule to build PacketConfig.o
+PacketConfig.o: PacketConfig.cpp PacketConfig.h
+	$(CXX) $(CXXFLAGS) -c PacketConfig.cpp
+
+# Rule to build PacketGenerator.o
+PacketGenerator.o: PacketGenerator.cpp PacketGenerator.h
+	$(CXX) $(CXXFLAGS) -c PacketGenerator.cpp
+
+# Clean rule
+clean:
+	del $(TARGET) $(OBJS)
+
+# Run the program with input and output file arguments
+run: $(TARGET)
+	./$(TARGET) first_milestone.txt output.txt
+
+.PHONY: all clean run
