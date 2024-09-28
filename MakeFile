@@ -30,6 +30,6 @@ clean:
 
 # Run the program with input and output file arguments
 run: $(TARGET)
-	./$(TARGET) first_milestone.txt output.txt
+	./$(TARGET) second_milestone.txt output.txt
 
 .PHONY: all clean run

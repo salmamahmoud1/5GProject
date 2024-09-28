@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <iomanip> 
+#include<vector>
+#include<cmath>
 using namespace std;
 class PacketConfig {
 
@@ -11,16 +13,23 @@ private:
     string destAddress;
     string sourceAddress;
     int maxPacketSize;
-    int burstSize;
-    int burstPeriodicityUs;
+    int oranSCS;
+    int oranMaxNrb;
+    int oranNrbPerPacket;
+    string payloadTypeRandom;
+    string oranPayloadFile;
     int added_IFGS;
+    int ethernetpayloadsize;
+    int oranpayloadsize;
+    int ecpriheadersize=8;
+    
+
 
 public:
 // Hard-coded values
 const string IFG = "07"; // Inter-Frame Gap
 const string PreambleSFD = "FB555555555555D5"; // Preamble + SFD
 const string ethertype ="0800";
-int payloadsize;
 int no_of_packets;
  // Getters
     int getLineRateGbps();
@@ -29,10 +38,14 @@ int no_of_packets;
     string getDestAddress();
     string getSourceAddress();
     int getMaxPacketSize();
-    int getBurstSize();
-    int getBurstPeriodicityUs();
     int getAdded_IFGS();
-    int getno_of_bursts();
+    int getOranSCS();
+    int getOranMaxNrb();
+    int getOranNrbPerPacket();
+    int getethernetpayloadsize();
+    int getoranpayloadsize();
+    int getecpriheadersize();
+    string get_iq_filename();
 
 
     // Setters
@@ -42,13 +55,13 @@ int no_of_packets;
     void setDestAddress(string& destAddr);
     void setSourceAddress(string& srcAddr);
     void setMaxPacketSize(int maxSize);
-    void setBurstSize(int burstSize);
-    void setBurstPeriodicityUs(int burstPeriodicity);
-    void setAddedIFGS();
+    void setAddedIFGS(int bytes);
+    void setethernetpayloadsize();
+    void setoranpayloadsize();
     // Method to load configuration from file
     bool loadConfig(string& configFilePath);
-
-
+    int calculate_no_of_packets();
+   
 
 };
 
